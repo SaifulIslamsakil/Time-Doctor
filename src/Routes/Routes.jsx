@@ -3,8 +3,9 @@ import MainLayOut from "../LayOut/MainLayOut";
 import Home from "../Pages/Home/Home";
 import Register from "../Pages/Register/Register";
 import Login from "../Pages/Login/Login";
-import Dashboard from "../Pages/Dashboard/Dashboard";
 import Private from "../Private/Private";
+import DashboardLayout from "../LayOut/Dashboard/DashboardLayour";
+import Dashboard from "../Pages/Dashboard/Dashboard";
 
 const Routes = createBrowserRouter([
     {
@@ -27,7 +28,13 @@ const Routes = createBrowserRouter([
     },
     {
         path:"/Dashboard",
-        element:<Private><Dashboard></Dashboard></Private>
+        element:<Private> <DashboardLayout></DashboardLayout> </Private>,
+        children:[
+            {
+                path:"/Dashboard",
+                element:<Dashboard></Dashboard>
+            }
+        ]
     }
 ])
 export default Routes
