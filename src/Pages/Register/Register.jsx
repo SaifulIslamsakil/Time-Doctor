@@ -43,7 +43,7 @@ const Register = () => {
             <div className="md:w-[70%] bg-gradient-to-r from-orange-200  to-gray-100 p-10 ">
                 <div className="space-y-10 lg:w-3/4 mx-auto">
                     <p className=" text-center font-bold text-3xl">Create your Time Doctor Account</p>
-                    <p className=" text-center">Already have an account? <Link to='/Signin' className=" font-bold">Sign in</Link> </p>
+                    <p className=" text-center">Already have an account? <Link to='/login' className=" font-bold">login</Link> </p>
                     <button className=" mx-auto p-3 rounded-lg border shadow-lg bg-white flex items-center gap-3 hover:shadow-sm"> <MdOutlineMailOutline className=" text-2xl text-orange-500" /> Sign up with Google</button>
                     <div className="divider">OR</div>
  

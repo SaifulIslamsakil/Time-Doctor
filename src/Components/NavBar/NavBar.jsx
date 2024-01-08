@@ -13,7 +13,7 @@ const NavBar = () => {
                     <li ><NavLink to={"/Register"} className=" hover:text-orange-500 hover:border-b-2 hover:border-orange-500 hover:pb-1">
                         Register
                     </NavLink></li>
-                    <li><NavLink className=" hover:text-orange-500 hover:border-b-2 hover:border-orange-500 hover:pb-1">
+                    <li><NavLink to={"/login"} className=" hover:text-orange-500 hover:border-b-2 hover:border-orange-500 hover:pb-1">
                         Login
                     </NavLink></li>
 
