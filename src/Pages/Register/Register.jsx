@@ -1,12 +1,15 @@
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { MdOutlineMailOutline } from "react-icons/md";
+import { useContext } from "react";
+import { AuthContext } from "../../Provider/Provider";
+import Swal from "sweetalert2";
 
 
 
 const Register = () => {
-    
-   
+   const {Register} = useContext(AuthContext)
+   const Navigate = useNavigate()
     const {
         register,
         reset,
@@ -14,7 +17,21 @@ const Register = () => {
         formState: { errors },
     } = useForm()
   const handelFormSubmit = (data)=>{
-    console.log(data)
+    Register(data.email, data.password)
+    .then(res=>{
+       if(res){
+        Swal.fire({
+            title: "Thank you!",
+            text: "Your Account successfully Register",
+            icon: "success"
+          });
+          reset()
+          Navigate('/')
+       }
+    })
+    .catch(err=>{
+        console.log(err)
+    })
   }
     return (
         <div className=" md:flex ">

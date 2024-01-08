@@ -1,7 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth"
 import Auth from "../Firbase/Firbase-confiq";
-const AuthContext = createContext(null)
+export const AuthContext = createContext(null)
 const Provider = ({children}) => {
     const [user, setUser] = useState([])
     const [lodding, setLodding] = useState(false)
