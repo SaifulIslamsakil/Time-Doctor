@@ -32,7 +32,7 @@ const Dashboard = () => {
             </NavLink>
         </li>
         <li>
-            <NavLink to="/messages"
+            <NavLink to="/Dashboard/project"
                 className={({ isActive, isPending }) =>
                     isPending ? "pending" : isActive ? " bg-orange-400  text-white p-2 rounded-lg flex items-center gap-2" : " text-gray-800 hover:bg-orange-400  hover:text-white p-2 hover:rounded-lg flex hover:flex items-center gap-2"
                 }>
