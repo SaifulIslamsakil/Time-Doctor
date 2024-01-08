@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { MdOutlineMailOutline } from "react-icons/md";
 import { useContext } from "react";
 import { AuthContext } from "../../Provider/Provider";
@@ -8,31 +8,33 @@ import Swal from "sweetalert2";
 
 
 const Register = () => {
-   const {Register} = useContext(AuthContext)
-   const Navigate = useNavigate()
+    const { Register } = useContext(AuthContext)
+   
+    const Navigate = useNavigate()
+    console.log(location)
     const {
         register,
         reset,
         handleSubmit,
         formState: { errors },
     } = useForm()
-  const handelFormSubmit = (data)=>{
-    Register(data.email, data.password)
-    .then(res=>{
-       if(res){
-        Swal.fire({
-            title: "Thank you!",
-            text: "Your Account successfully Register",
-            icon: "success"
-          });
-          reset()
-          Navigate('/')
-       }
-    })
-    .catch(err=>{
-        console.log(err)
-    })
-  }
+    const handelFormSubmit = (data) => {
+        Register(data.email, data.password)
+            .then(res => {
+                if (res) {
+                    Swal.fire({
+                        title: "Thank you!",
+                        text: "Your Account successfully Register",
+                        icon: "success"
+                    });
+                    Navigate("/Dashboard")
+
+                }
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
     return (
         <div className=" md:flex ">
             <div className=" bg-purple-600 md:w-[30%]  ">
@@ -46,7 +48,7 @@ const Register = () => {
                     <p className=" text-center">Already have an account? <Link to='/login' className=" font-bold">login</Link> </p>
                     <button className=" mx-auto p-3 rounded-lg border shadow-lg bg-white flex items-center gap-3 hover:shadow-sm"> <MdOutlineMailOutline className=" text-2xl text-orange-500" /> Sign up with Google</button>
                     <div className="divider">OR</div>
- 
+
                     <form action="" onSubmit={handleSubmit(handelFormSubmit)} >
                         <div className=" grid md:grid-cols-2 gap-5">
                             <div className=" col-span-1">

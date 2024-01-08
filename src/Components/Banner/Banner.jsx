@@ -9,13 +9,6 @@ const Banner = () => {
                         <input className=" h-full w-full rounded-full border-none outline-none p-5" placeholder="Search For Topice...." type="search" name="" id="" />
                         <span className=" text-2xl m-3 text-purple-600"></span>
                     </div>
-                    <div className=" flex gap-4 mx-auto md:w-1/2 ">
-                        <p className=" font-semibold">Popular : </p>
-                        <p>Update </p>
-                        <p>Code  </p>
-                        <p>Footer </p>
-
-                    </div>
                     <div>
                         <div className="md:w-2/3  mx-auto flex justify-between gap-2  ">
                             <img className=" w-20 h-20 rounded-full border-4 border-white " src="https://i.ibb.co/4wLMNHR/bn1.jpg" alt="" />

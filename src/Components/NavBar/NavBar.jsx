@@ -10,6 +10,9 @@ const NavBar = () => {
                     <li><NavLink className=" hover:text-orange-500 hover:border-b-2 hover:border-orange-500 hover:pb-1">
                         Blog
                     </NavLink></li>
+                    <li ><NavLink to={"/Dashboard"} className=" hover:text-orange-500 hover:border-b-2 hover:border-orange-500 hover:pb-1">
+                        Dashboard
+                    </NavLink></li>
                     <li ><NavLink to={"/Register"} className=" hover:text-orange-500 hover:border-b-2 hover:border-orange-500 hover:pb-1">
                         Register
                     </NavLink></li>
