@@ -7,6 +7,7 @@ import Private from "../Private/Private";
 import DashboardLayout from "../LayOut/Dashboard/DashboardLayour";
 import Dashboard from "../Pages/Dashboard/Dashboard";
 import Projects from "../Pages/Projects/Projects";
+import Tasks from "../Pages/Tasks/Tasks";
 
 const Routes = createBrowserRouter([
     {
@@ -38,6 +39,10 @@ const Routes = createBrowserRouter([
             {
                 path:"project",
                 element:<Projects></Projects>
+            },
+            {
+                path:"Tasks",
+                element:<Tasks></Tasks>
             }
         ]
     }

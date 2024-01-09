@@ -2,7 +2,7 @@ import { NavLink, Outlet } from "react-router-dom";
 import { FaHome } from "react-icons/fa";
 import { PiTelevisionSimpleBold } from "react-icons/pi";
 import { PiSuitcaseSimpleBold } from "react-icons/pi";
-import { MdAccessTimeFilled } from "react-icons/md";
+import { MdAccessTimeFilled, MdOutlineTaskAlt } from "react-icons/md";
 import { BsBarChartFill } from "react-icons/bs";
 import { FaRegFaceSmile } from "react-icons/fa6";
 import { CgProfile } from "react-icons/cg";
@@ -37,6 +37,14 @@ const Dashboard = () => {
                     isPending ? "pending" : isActive ? " bg-orange-400  text-white p-2 rounded-lg flex items-center gap-2" : " text-gray-800 hover:bg-orange-400  hover:text-white p-2 hover:rounded-lg flex hover:flex items-center gap-2"
                 }>
                 <span className=" text-xl"> <PiSuitcaseSimpleBold /> </span> Projects
+            </NavLink>
+        </li>
+        <li>
+            <NavLink to="/Dashboard/Tasks"
+                className={({ isActive, isPending }) =>
+                    isPending ? "pending" : isActive ? " bg-orange-400  text-white p-2 rounded-lg flex items-center gap-2" : " text-gray-800 hover:bg-orange-400  hover:text-white p-2 hover:rounded-lg flex hover:flex items-center gap-2"
+                }>
+                <span className=" text-xl"> <MdOutlineTaskAlt />  </span> Tasks
             </NavLink>
         </li>
         <li>
