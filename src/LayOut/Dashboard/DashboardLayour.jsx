@@ -1,5 +1,5 @@
 import { NavLink, Outlet } from "react-router-dom";
-import { FaHome } from "react-icons/fa";
+import { FaBandAid, FaHome } from "react-icons/fa";
 import { PiTelevisionSimpleBold } from "react-icons/pi";
 import { PiSuitcaseSimpleBold } from "react-icons/pi";
 import { MdAccessTimeFilled, MdOutlineTaskAlt } from "react-icons/md";
@@ -48,7 +48,15 @@ const Dashboard = () => {
             </NavLink>
         </li>
         <li>
-            <NavLink to="/messages"
+            <NavLink to="/Dashboard/Tickets"
+                className={({ isActive, isPending }) =>
+                    isPending ? "pending" : isActive ? " bg-orange-400  text-white p-2 rounded-lg flex items-center gap-2" : " text-gray-800 hover:bg-orange-400  hover:text-white p-2 hover:rounded-lg flex hover:flex items-center gap-2"
+                }>
+                <span className=" text-xl"> <FaBandAid />  </span> Tickets View
+            </NavLink>
+        </li>
+        <li>
+            <NavLink to="/Dashboard/Time-line"
                 className={({ isActive, isPending }) =>
                     isPending ? "pending" : isActive ? " bg-orange-400  text-white p-2 rounded-lg flex items-center gap-2" : " text-gray-800 hover:bg-orange-400  hover:text-white p-2 hover:rounded-lg flex hover:flex items-center gap-2"
                 }>
@@ -56,7 +64,7 @@ const Dashboard = () => {
             </NavLink>
         </li>
         <li>
-            <NavLink to="/messages"
+            <NavLink to="/Dashboard/Reports"
                 className={({ isActive, isPending }) =>
                     isPending ? "pending" : isActive ? " bg-orange-400  text-white p-2 rounded-lg flex items-center gap-2" : " text-gray-800 hover:bg-orange-400  hover:text-white p-2 hover:rounded-lg flex hover:flex items-center gap-2"
                 }>

@@ -8,6 +8,9 @@ import DashboardLayout from "../LayOut/Dashboard/DashboardLayour";
 import Dashboard from "../Pages/Dashboard/Dashboard";
 import Projects from "../Pages/Projects/Projects";
 import Tasks from "../Pages/Tasks/Tasks";
+import TicketsView from "../Pages/TicketsView/TicketsView";
+import TimeIlne from "../Pages/Time-line/TimeIlne";
+import Reports from "../Pages/Reports/Reports";
 
 const Routes = createBrowserRouter([
     {
@@ -43,7 +46,19 @@ const Routes = createBrowserRouter([
             {
                 path:"Tasks",
                 element:<Tasks></Tasks>
-            }
+            },
+            {
+                path:"Tickets",
+                element:<TicketsView></TicketsView>
+            },
+            {
+                path:"Time-line",
+                element:<TimeIlne></TimeIlne>
+            },
+            {
+                path:"Reports",
+                element:<Reports></Reports>
+            },
         ]
     }
 ])

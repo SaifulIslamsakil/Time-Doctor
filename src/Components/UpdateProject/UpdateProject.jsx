@@ -1,16 +1,14 @@
 
+
 import { useForm } from 'react-hook-form';
 import { FaPlus } from 'react-icons/fa6';
 import { ImCross } from 'react-icons/im';
 import Swal from 'sweetalert2';
+import UseAxiosPublic from '../../Hooks/UseAxiosPublic';
+import { useQuery } from '@tanstack/react-query';
 
 const UpdateProject = ({ editeform, setEditeForm, id }) => {
-    // const { data: SeeProject = [], refetch } = useQuery({
-    //     queryKey: ['all-class'],
-    //     queryFn: async () => {
-
-    //     }
-    // })
+    const AxiosPublice = UseAxiosPublic()
     const {
         register,
         handleSubmit,
@@ -28,19 +26,18 @@ const UpdateProject = ({ editeform, setEditeForm, id }) => {
             project_name: data.project_name,
             start_date: data.start_date
         }
-        console.log(updateInfo)
-        // AxiosPublice.put(`/updateData/${id}`, updateInfo)
-        //     .then(res => {
-        //         if (res.data.modifiedCount > 0) {
-        //             Swal.fire({
-        //                 title: "Good job!",
-        //                 text: "your projcet hasbeen updated!",
-        //                 icon: "success"
-        //             });
-        //             setEditeForm(false)
+        AxiosPublice.put(`/updateData/${id}`, updateInfo)
+            .then(res => {
+                if (res.data.modifiedCount > 0) {
+                    Swal.fire({
+                        title: "Good job!",
+                        text: "your projcet hasbeen updated!",
+                        icon: "success"
+                    });
+                    setEditeForm(false)
 
-        //         }
-        //     })
+                }
+            })
     }
     return (
         <div>
