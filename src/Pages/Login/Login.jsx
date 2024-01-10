@@ -1,17 +1,36 @@
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLoaderData, useLocation, useNavigate } from "react-router-dom";
 import { MdOutlineMailOutline } from "react-icons/md";
+import { useContext } from "react";
+import { AuthContext } from "../../Provider/Provider";
+import Swal from "sweetalert2";
 
 const Login = () => {
+    const location = useLocation()
     const Navigate = useNavigate()
+    const {login}= useContext(AuthContext)
+
     const {
         register,
-        reset,
+   
         handleSubmit,
         formState: { errors },
     } = useForm()
     const handelFormSubmit = (data) => {
-       console.log(data)
+      login(data?.email, data?.password)
+      .then(res=>{
+        if(res){
+            Swal.fire({
+                title: "Thank you!",
+                text: "Your Account successfully login",
+                icon: "success"
+            });
+           { location.state ? Navigate(location?.state): Navigate("/")}
+        }
+      })
+      .catch(err=>{
+        console.log(err)
+      })
     }
     return (
         <div>

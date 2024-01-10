@@ -10,10 +10,14 @@ import { FaUserClock } from "react-icons/fa";
 import { FaChartLine } from "react-icons/fa";
 import { FaBell } from "react-icons/fa6";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { CgClose } from "react-icons/cg";
+import { HiOutlineLogout } from "react-icons/hi";
+import { AuthContext } from "../../Provider/Provider";
+import Swal from "sweetalert2";
 const Dashboard = () => {
     const [menu, setMenu] = useState(true)
+    const {logOut} = useContext(AuthContext)
     const menuItem = <>
         <li>
             <NavLink to="/Dashboard"
@@ -23,14 +27,7 @@ const Dashboard = () => {
                 <span className=" text-xl"> <FaHome /> </span> Dashboard
             </NavLink>
         </li>
-        <li>
-            <NavLink to="/messages"
-                className={({ isActive, isPending }) =>
-                    isPending ? "pending" : isActive ? " bg-orange-400  text-white p-2 rounded-lg flex items-center gap-2" : " text-gray-800 hover:bg-orange-400  hover:text-white p-2 hover:rounded-lg flex hover:flex items-center gap-2"
-                }>
-                <span className=" text-xl"> <PiTelevisionSimpleBold /> </span> Screencasts
-            </NavLink>
-        </li>
+        
         <li>
             <NavLink to="/Dashboard/Hours-Tracked"
                 className={({ isActive, isPending }) =>
@@ -80,7 +77,15 @@ const Dashboard = () => {
             </NavLink>
         </li>
         <li>
-            <NavLink to="/messages"
+            <NavLink to="/"
+                className={({ isActive, isPending }) =>
+                    isPending ? "pending" : isActive ? " bg-orange-400  text-white p-2 rounded-lg flex items-center gap-2" : " text-gray-800 hover:bg-orange-400  hover:text-white p-2 hover:rounded-lg flex hover:flex items-center gap-2"
+                }>
+                <span className=" text-xl"> <PiTelevisionSimpleBold /> </span> Screencasts
+            </NavLink>
+        </li>
+        <li>
+            <NavLink to="/"
                 className={({ isActive, isPending }) =>
                     isPending ? "pending" : isActive ? " bg-orange-400  text-white p-2 rounded-lg flex items-center gap-2" : " text-gray-800 hover:bg-orange-400  hover:text-white p-2 hover:rounded-lg flex hover:flex items-center gap-2"
                 }>
@@ -88,7 +93,7 @@ const Dashboard = () => {
             </NavLink>
         </li>
         <li>
-            <NavLink to="/messages"
+            <NavLink to="/"
                 className={({ isActive, isPending }) =>
                     isPending ? "pending" : isActive ? " bg-orange-400  text-white p-2 rounded-lg flex items-center gap-2" : " text-gray-800 hover:bg-orange-400  hover:text-white p-2 hover:rounded-lg flex hover:flex items-center gap-2"
                 }>
@@ -97,7 +102,7 @@ const Dashboard = () => {
         </li>
      
         <li>
-            <NavLink to="/messages"
+            <NavLink to="/"
                 className={({ isActive, isPending }) =>
                     isPending ? "pending" : isActive ? " bg-orange-400  text-white p-2 rounded-lg flex items-center gap-2" : "  text-gray-800 hover:bg-orange-400  hover:text-white p-2 hover:rounded-lg flex hover:flex items-center gap-2"
                 }>
@@ -108,6 +113,27 @@ const Dashboard = () => {
     const handelMenuToggel = () => {
         setMenu(!menu)
     }
+    const handelLogout = ()=>{
+        logOut()
+        .then(res=>{
+            if(res){
+                Swal.fire({
+                    title: "Thank you!",
+                    text: "Your Account successfully logot",
+                    icon: "success"
+                });
+            }
+        })
+        .catch(err=>{
+            if(err){
+                Swal.fire({
+                    title: "wrong!",
+                    text: "please try agein",
+                    icon: "wrong"
+                });
+            }
+        })
+    }
     return (
         <div>
             <div className=" p-5 bg-white shadow-xl  flex justify-between border items-center ">
@@ -115,7 +141,7 @@ const Dashboard = () => {
                     <div onClick={handelMenuToggel} >
                         <p className=" text-2xl">{menu ? <CgClose /> : <GiHamburgerMenu />}</p>
                     </div>
-                    <img className=" w-40" src="https://i.ibb.co/2g8cLmX/timedoctor-logo.png" alt="" />
+                    <img className=" w-40 hidden md:block" src="https://i.ibb.co/2g8cLmX/timedoctor-logo.png" alt="" />
                 </div>
                 <div className=" flex items-center gap-4">
                     <p className=" text-3xl"><FaBell /></p>
@@ -134,12 +160,12 @@ const Dashboard = () => {
                         <svg className="swap-off fill-current w-8 h-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.64,13a1,1,0,0,0-1.05-.14,8.05,8.05,0,0,1-3.37.73A8.15,8.15,0,0,1,9.08,5.49a8.59,8.59,0,0,1,.25-2A1,1,0,0,0,8,2.36,10.14,10.14,0,1,0,22,14.05,1,1,0,0,0,21.64,13Zm-9.5,6.69A8.14,8.14,0,0,1,7.08,5.22v.27A10.15,10.15,0,0,0,17.22,15.63a9.79,9.79,0,0,0,2.1-.22A8.11,8.11,0,0,1,12.14,19.73Z" /></svg>
 
                     </label>
+                    <p onClick={handelLogout} className=" text-3xl font-bold"><HiOutlineLogout /></p>
                 </div>
             </div>
 
             <div className=" bg-slate-100  flex">
-
-                <div className={` w-[20%] p-3 bg-white  shadow-xl border ${menu ? "block duration-1000" : "hidden"}`}>
+                <div className={`w-[70%] md:w-[50%] lg:w-[20%] p-3 absolute z-50 lg:static bg-white  shadow-xl border ${menu ? "block duration-1000" : "hidden"}`}>
                     <ul className="p-3 text-lg font-semibold space-y-2">
                         {menuItem}
                     </ul>

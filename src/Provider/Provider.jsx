@@ -27,6 +27,7 @@ const Provider = ({children}) => {
             return unSubcribe
         }
     }, [])
+    
     const AuthInfo = {
         Register,
         login,

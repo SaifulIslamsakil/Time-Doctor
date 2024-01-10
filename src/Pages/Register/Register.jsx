@@ -27,7 +27,7 @@ const Register = () => {
                         text: "Your Account successfully Register",
                         icon: "success"
                     });
-                    Navigate("/Dashboard")
+                    Navigate("/")
 
                 }
             })
