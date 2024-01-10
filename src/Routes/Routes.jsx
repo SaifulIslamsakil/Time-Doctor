@@ -11,6 +11,7 @@ import Tasks from "../Pages/Tasks/Tasks";
 import TicketsView from "../Pages/TicketsView/TicketsView";
 import TimeIlne from "../Pages/Time-line/TimeIlne";
 import Reports from "../Pages/Reports/Reports";
+import HoursTracked from "../Pages/HoursTracked/HoursTracked";
 
 const Routes = createBrowserRouter([
     {
@@ -58,6 +59,10 @@ const Routes = createBrowserRouter([
             {
                 path:"Reports",
                 element:<Reports></Reports>
+            },
+            {
+                path:"Hours-Tracked",
+                element:<HoursTracked></HoursTracked>
             },
         ]
     }

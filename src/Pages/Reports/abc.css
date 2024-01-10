@@ -1,0 +1,29 @@
+.progress-circle {
+    position: relative;
+  }
+  
+  .progress-circle-bg {
+    fill: none;
+    stroke: #e0e0e0;
+    stroke-width: 10;
+  }
+  
+  .progress-circle-bar {
+    fill: none;
+    stroke: #007bff;
+    stroke-width: 10;
+    stroke-linecap: round;
+    transform: rotate(-90deg);
+    transform-origin: 50% 50%;
+    transition: stroke-dashoffset 0.5s;
+  }
+  
+  .progress-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px;
+    color: #007bff;
+  }
+  

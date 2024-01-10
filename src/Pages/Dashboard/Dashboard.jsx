@@ -1,6 +1,38 @@
 import { NavLink } from "react-router-dom";
 import { SiSimilarweb } from "react-icons/si";
+import { FaPlay } from "react-icons/fa";
+import { FaStopCircle } from "react-icons/fa";
+import { useEffect, useState } from "react";
+import { GrPowerReset } from "react-icons/gr";
 const Dashboard = () => {
+    const [time, setTime] = useState(0)
+    const [isRuning, setIsRuning] = useState(false)
+   
+
+    useEffect(() => {
+        let timer;
+        if (isRuning) {
+            timer = setInterval(() => {
+                setTime((prevTime) => prevTime + 1)
+            }, 1000);
+        }
+        return () => clearInterval(timer)
+    }, [isRuning])
+
+    const Timer = () => {
+        setIsRuning(!isRuning)
+    }
+  
+    const resetTimer = () => {
+        setTime(0)
+        setIsRuning(false)
+    }
+    const formentTime = (timeInSeconds) => {
+        const hours = Math.floor(timeInSeconds / 3600);
+        const minutes = Math.floor((timeInSeconds % 3600) / 60);
+        const seconds = timeInSeconds % 60;
+        return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    }
     return (
         <div className=" space-y-10">
             <div className=" flex gap-3 items-center justify-between">
@@ -30,6 +62,11 @@ const Dashboard = () => {
                         PAST 30 DAYS
                     </NavLink></p>
                 </div>
+                <div className=" flex gap-3 items-center">
+                    <p onClick={Timer} className=" w-10 h-10 hover:w-12 hover:h-12 hover:text-2xl hover:duration-300 text-xl rounded-full shadow-lg text-orange-400 flex justify-center items-center bg-white"> {!isRuning ?<FaPlay />:<FaStopCircle />}</p>
+                    <p className=" text-xl font-bold">{formentTime(time)}</p>
+                    <p onClick={resetTimer} className="w-10 h-10 hover:w-12 hover:h-12 hover:text-2xl hover:duration-300 text-xl rounded-full shadow-lg text-orange-400 flex justify-center items-center bg-white "> <GrPowerReset /></p>
+                </div>
                 <div className=" flex gap-4">
                     <div>
                         <label className="form-control w-full max-w-60">
@@ -51,7 +88,7 @@ const Dashboard = () => {
                 </div>
             </div>
             <div className=" grid md:grid-cols-2 lg:grid-cols-3 gap-5 ">
-                <div className=" border bg-white p-5 text-xs space-y-2 rounded-lg shadow-lg border-orange-500">
+                <div className="  border bg-white p-5 text-xs space-y-2 rounded-lg shadow-lg border-orange-500">
                     <p>Total time tracked</p>
                     <h6 className=" text-lg font-semibold">8h 51m</h6>
                     <p>This week: 9h 34m</p>

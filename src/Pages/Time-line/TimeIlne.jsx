@@ -1,52 +1,19 @@
-import { useEffect } from "react";
-import { useState } from "react";
-
-
+import "./Card.css"
 const TimeIlne = () => {
-    const [time, setTime] = useState(0)
-    const [isRuning, setIsRuning] = useState(false)
-
-    useEffect(() => {
-        let timer;
-        if (isRuning) {
-            timer = setInterval(() => {
-                setTime((prevTime) => prevTime + 1)
-            }, 1000);
-        }
-        return () => clearInterval(timer)
-    }, [isRuning])
-
-    const startTimer = () => {
-        setIsRuning(true)
-    }
-    const stopTimer = () => {
-        setIsRuning(false)
-    }
-    const resetTimer = () => {
-        setTime(0)
-    }
-
-    const formentTime = (timeInSeconds) => {
-        const hours = Math.floor(timeInSeconds / 3600);
-        const minutes = Math.floor((timeInSeconds % 3600) / 60);
-        const seconds = timeInSeconds % 60;
-        return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-    }
     return (
-        <div>
-        <h1>Time Tracker</h1>
-        <div>
-          <p >{formentTime(time)}</p>
+        <div className="card-container">
+            <div className="card">
+                <div className="card-front">
+                    <div className=" border bg-white p-5 text-xs space-y-2 rounded-lg shadow-lg border-orange-500">
+                        <p>Total time tracked</p>
+                        <h6 className=" text-lg font-semibold">8h 51m</h6>
+                        <p>This week: 9h 34m</p>
+                        <p>This month: 97h 52m</p>
+                    </div>
+                </div>
+                
+            </div>
         </div>
-        <div>
-          {!isRuning ? (
-            <button onClick={startTimer}>Start</button>
-          ) : (
-            <button onClick={stopTimer}>Stop</button>
-          )}
-          <button onClick={resetTimer}>Reset</button>
-        </div>
-      </div>
     );
 };
 
