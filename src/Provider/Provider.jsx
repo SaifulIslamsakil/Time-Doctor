@@ -19,7 +19,7 @@ const Provider = ({children}) => {
     }
     useEffect(() => {
         const unSubcribe = onAuthStateChanged(Auth, currenUser => {
-            console.log(currenUser)
+       
             setUser(currenUser)
             setLodding(false)
         })

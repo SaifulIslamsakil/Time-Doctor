@@ -1,13 +1,36 @@
 import { NavLink } from "react-router-dom";
-import { SiSimilarweb } from "react-icons/si";
+import { SiSimilarweb} from "react-icons/si";
 import { FaPlay } from "react-icons/fa";
 import { FaStopCircle } from "react-icons/fa";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { GrPowerReset } from "react-icons/gr";
+import UseAxiosPublic from "../../Hooks/UseAxiosPublic";
+import { AuthContext } from "../../Provider/Provider";
+import toast, { Toaster } from "react-hot-toast";
+import { useQuery } from "@tanstack/react-query";
+
 const Dashboard = () => {
     const [time, setTime] = useState(0)
     const [isRuning, setIsRuning] = useState(false)
-   
+    const AxiosPublice = UseAxiosPublic()
+    const { user } = useContext(AuthContext)
+    // Get the current date
+    const currentDate = new Date();
+    // Extract the day and month from the current date
+    const day = currentDate.getDate(); // Get the day of the month (1-31)
+    const month = currentDate.getMonth() + 1; // Get the month (0-11) and add 1 to display (1-12)
+
+    // data get to serersite useing by tanstak quray and axios
+
+    const { data = [], refetch } = useQuery({
+        queryKey: ["Hours-Tracked"],
+        queryFn: async () => {
+            const res = await AxiosPublice.get("/Hours-Tracked")
+            return res.data
+        }
+    })
+
+// timer
 
     useEffect(() => {
         let timer;
@@ -22,19 +45,51 @@ const Dashboard = () => {
     const Timer = () => {
         setIsRuning(!isRuning)
     }
-  
+
+    // data post on server Site
+
     const resetTimer = () => {
         setTime(0)
         setIsRuning(false)
+        const ssd = {
+            userEmail: user?.email,
+            time: time
+        }
+        AxiosPublice.post("/Hours-Tracked", ssd)
+            .then(res => {
+                if (res.data?.acknowledged) {
+                    toast.success('Your work Successfully Added !')
+                    refetch()
+                }
+            })
+
     }
+    // convat to formentTime
+
     const formentTime = (timeInSeconds) => {
         const hours = Math.floor(timeInSeconds / 3600);
         const minutes = Math.floor((timeInSeconds % 3600) / 60);
         const seconds = timeInSeconds % 60;
         return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
     }
+
+    //  total Seconds 
+
+    const totalSeconds = data.reduce((accumulator, currentValue) => {
+        return accumulator + currentValue?.time;
+    }, 0);
+
+    // convart to hours and minutes
+
+    const currentValue = (totalSeconds) => {
+        const hours = Math.floor(totalSeconds / 3600);
+        const minutes = Math.floor((totalSeconds % 3600) / 60);
+        return ` ${String(hours).padStart(2, '0')}h  ${String(minutes).padStart(2, '0')}m`;
+    };
+   
     return (
         <div className=" space-y-10">
+            <Toaster />
             <div className=" flex gap-3 items-center justify-between">
                 <div className=" bg-gray-700 p-3 flex gap-5 text-white rounded-lg">
                     <p>  <NavLink to="/"
@@ -63,7 +118,7 @@ const Dashboard = () => {
                     </NavLink></p>
                 </div>
                 <div className=" flex gap-3 items-center">
-                    <p onClick={Timer} className=" w-10 h-10 hover:w-12 hover:h-12 hover:text-2xl hover:duration-300 text-xl rounded-full shadow-lg text-orange-400 flex justify-center items-center bg-white"> {!isRuning ?<FaPlay />:<FaStopCircle />}</p>
+                    <p onClick={Timer} className=" w-10 h-10 hover:w-12 hover:h-12 hover:text-2xl hover:duration-300 text-xl rounded-full shadow-lg text-orange-400 flex justify-center items-center bg-white"> {!isRuning ? <FaPlay /> : <FaStopCircle />}</p>
                     <p className=" text-xl font-bold">{formentTime(time)}</p>
                     <p onClick={resetTimer} className="w-10 h-10 hover:w-12 hover:h-12 hover:text-2xl hover:duration-300 text-xl rounded-full shadow-lg text-orange-400 flex justify-center items-center bg-white "> <GrPowerReset /></p>
                 </div>
@@ -90,9 +145,13 @@ const Dashboard = () => {
             <div className=" grid md:grid-cols-2 lg:grid-cols-3 gap-5 ">
                 <div className="  border bg-white p-5 text-xs space-y-2 rounded-lg shadow-lg border-orange-500">
                     <p>Total time tracked</p>
-                    <h6 className=" text-lg font-semibold">8h 51m</h6>
-                    <p>This week: 9h 34m</p>
-                    <p>This month: 97h 52m</p>
+                    <h6 className=" text-lg font-semibold">{currentValue(totalSeconds)}</h6>
+                    <p>This week: {currentValue(totalSeconds)}</p>
+                    <p>This month: {currentValue(totalSeconds)}</p>
+                    <h1>Current Day and Month</h1>
+                    <p>Day: {day}</p>
+                    <p>Month: {month}</p>
+
                 </div>
                 <div className=" border bg-white p-5 text-xs space-y-2 rounded-lg shadow-lg border-orange-500">
                     <p>Idle minutes</p>
@@ -104,6 +163,7 @@ const Dashboard = () => {
                     <p>Unproductive time</p>
                     <h6 className=" text-lg font-semibold">16M</h6>
                     <progress className="progress progress-secondary w-32" value="100" max="100"></progress>
+
                 </div>
 
                 <div className=" border bg-white p-5 text-xs space-y-2 rounded-lg shadow-lg border-orange-500">
@@ -252,7 +312,7 @@ const Dashboard = () => {
                             <div className="radial-progress text-green-300" style={{ "--value": 70 }} role="progressbar">70%</div>
                             <p className=" text-center">Marketing </p>
                         </div>
-                       
+
                     </div>
 
                 </div>
